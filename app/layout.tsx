@@ -30,7 +30,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${sora.variable} ${dmSans.variable}`}>
-      <body>
+      <body suppressHydrationWarning>
         <MantineProvider
           theme={{
             fontFamily: "var(--font-dm-sans), sans-serif",

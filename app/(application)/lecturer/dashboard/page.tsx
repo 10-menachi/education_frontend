@@ -1,5 +1,11 @@
 "use client";
 
+// ─────────────────────────────────────────────────────────────────────────────
+// Vibetech Education — Lecturer Dashboard
+// Stack: Next.js (App Router) + Mantine v7
+// ─────────────────────────────────────────────────────────────────────────────
+
+import { useState } from "react";
 import {
   ActionIcon,
   Avatar,
@@ -12,17 +18,21 @@ import {
   Group,
   Indicator,
   MantineProvider,
+  Menu,
   NavLink,
   Paper,
+  Popover,
   Progress,
   RingProgress,
   ScrollArea,
   Stack,
   Table,
   Text,
+  TextInput,
   ThemeIcon,
   Title,
   Tooltip,
+  UnstyledButton,
   createTheme,
   rem,
 } from "@mantine/core";
@@ -55,6 +65,13 @@ import {
   IconUser,
   IconUsers,
   IconUsersGroup,
+  IconKey,
+  IconHelp,
+  IconX,
+  IconExternalLink,
+  IconClock,
+  IconShieldCheck,
+  IconBuildingCommunity,
 } from "@tabler/icons-react";
 
 // ─── Theme ───────────────────────────────────────────────────────────────────
@@ -112,7 +129,10 @@ const theme = createTheme({
 const lecturer = {
   name: "Dr. Kamau Njoroge",
   title: "Senior Lecturer — CS",
+  email: "k.njoroge@strathmore.edu",
+  department: "Computer Science",
   avatar: "KN",
+  employeeId: "STR/LECT/2019/042",
 };
 
 const classes = [
@@ -279,6 +299,119 @@ const aiInsights = [
   },
 ];
 
+// Lecturer notifications
+const notifications = [
+  {
+    id: 1,
+    read: false,
+    title: "AI Alert — 9 Students at Risk",
+    body: "CS 301 nightly analysis flagged 9 students performing below 50%. Review and send interventions.",
+    time: "Today, 06:00 AM",
+    icon: IconAlertTriangle,
+    color: "red",
+  },
+  {
+    id: 2,
+    read: false,
+    title: "CSV Import Complete",
+    body: "39 students successfully imported into CS 325 Software Engineering.",
+    time: "3 hrs ago",
+    icon: IconCheck,
+    color: "teal",
+  },
+  {
+    id: 3,
+    read: false,
+    title: "AI Insights Ready",
+    body: "Nightly analysis complete for all 3 classes. 2 class-level summaries available.",
+    time: "6 hrs ago",
+    icon: IconBrain,
+    color: "indigo",
+  },
+  {
+    id: 4,
+    read: true,
+    title: "Mark Sheet Export",
+    body: "CS 312 Excel mark sheet was downloaded successfully.",
+    time: "Yesterday",
+    icon: IconFileSpreadsheet,
+    color: "green",
+  },
+  {
+    id: 5,
+    read: true,
+    title: "Student Alert Delivered",
+    body: "5 at-risk students in CS 301 received personalised AI feedback emails.",
+    time: "2 days ago",
+    icon: IconMail,
+    color: "blue",
+  },
+];
+
+// Search suggestions for lecturer
+const searchSuggestions = [
+  {
+    group: "Classes",
+    items: [
+      {
+        label: "Database Systems",
+        sub: "CS 301 · 48 students · 9 at risk",
+        icon: IconFolderOpen,
+      },
+      {
+        label: "Algorithms & DS",
+        sub: "CS 312 · 52 students · Improving",
+        icon: IconFolderOpen,
+      },
+      {
+        label: "Software Engineering",
+        sub: "CS 325 · 39 students",
+        icon: IconFolderOpen,
+      },
+    ],
+  },
+  {
+    group: "Students",
+    items: [
+      {
+        label: "Faith Wanjiku",
+        sub: "CS/2021/043 · Database Systems · At Risk",
+        icon: IconUser,
+      },
+      {
+        label: "Brian Omondi",
+        sub: "CS/2021/078 · Database Systems · At Risk",
+        icon: IconUser,
+      },
+      {
+        label: "Cynthia Akinyi",
+        sub: "CS/2021/112 · Algorithms & DS",
+        icon: IconUser,
+      },
+    ],
+  },
+  {
+    group: "Quick Actions",
+    items: [
+      {
+        label: "Import Students (CSV)",
+        sub: "Bulk enrol students into a class",
+        icon: IconUpload,
+      },
+      {
+        label: "AI Insights",
+        sub: "View nightly AI class analysis",
+        icon: IconBrain,
+      },
+      {
+        label: "Export Reports",
+        sub: "Download mark sheets or result slips",
+        icon: IconFileExport,
+      },
+    ],
+  },
+];
+
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 function gradeColor(score: number) {
   if (score >= 70) return "teal";
@@ -318,6 +451,545 @@ function TrendBadge({ trend }: { trend: string }) {
   );
 }
 
+// ─── Search Popover ───────────────────────────────────────────────────────────
+function SearchBar() {
+  const [opened, setOpened] = useState(false);
+  const [query, setQuery] = useState("");
+
+  const filtered =
+    query.trim().length > 0
+      ? searchSuggestions
+          .map((g) => ({
+            ...g,
+            items: g.items.filter(
+              (i) =>
+                i.label.toLowerCase().includes(query.toLowerCase()) ||
+                i.sub.toLowerCase().includes(query.toLowerCase()),
+            ),
+          }))
+          .filter((g) => g.items.length > 0)
+      : searchSuggestions;
+
+  return (
+    <Popover
+      opened={opened}
+      onClose={() => {
+        setOpened(false);
+        setQuery("");
+      }}
+      width={400}
+      position="bottom-start"
+      shadow="lg"
+      radius="lg"
+      offset={8}
+    >
+      <Popover.Target>
+        <Box onClick={() => setOpened(true)} style={{ cursor: "pointer" }}>
+          {opened ? (
+            <TextInput
+              autoFocus
+              value={query}
+              onChange={(e) => setQuery(e.currentTarget.value)}
+              placeholder="Search classes, students, actions…"
+              leftSection={<IconSearch size={15} color="#94a3b8" />}
+              rightSection={
+                query ? (
+                  <ActionIcon
+                    size="xs"
+                    variant="subtle"
+                    color="gray"
+                    onClick={() => setQuery("")}
+                  >
+                    <IconX size={12} />
+                  </ActionIcon>
+                ) : null
+              }
+              styles={{
+                input: {
+                  background: "#f8fafc",
+                  border: "2px solid #6366f1",
+                  borderRadius: rem(10),
+                  fontSize: 13,
+                  width: 300,
+                },
+              }}
+            />
+          ) : (
+            <Group
+              gap={10}
+              style={{
+                background: "#f8fafc",
+                borderRadius: rem(10),
+                padding: "9px 14px",
+                width: 300,
+              }}
+            >
+              <IconSearch size={15} color="#94a3b8" />
+              <Text fz={13} c="dimmed">
+                Search classes, students…
+              </Text>
+              <Box style={{ marginLeft: "auto" }}>
+                <Badge
+                  size="xs"
+                  variant="outline"
+                  color="gray"
+                  radius="sm"
+                  style={{ fontFamily: "monospace" }}
+                >
+                  ⌘K
+                </Badge>
+              </Box>
+            </Group>
+          )}
+        </Box>
+      </Popover.Target>
+
+      <Popover.Dropdown
+        p={0}
+        style={{ border: "1px solid #e2e8f0", overflow: "hidden" }}
+      >
+        <ScrollArea.Autosize mah={400}>
+          {filtered.length === 0 ? (
+            <Box p="lg" ta="center">
+              <Text fz={13} c="dimmed">
+                No results for "{query}"
+              </Text>
+            </Box>
+          ) : (
+            <Stack gap={0} p="xs">
+              {filtered.map((group) => (
+                <Box key={group.group} mb={4}>
+                  <Text
+                    fz={10}
+                    fw={700}
+                    c="dimmed"
+                    px={8}
+                    py={6}
+                    style={{
+                      textTransform: "uppercase",
+                      letterSpacing: "0.08em",
+                    }}
+                  >
+                    {group.group}
+                  </Text>
+                  {group.items.map((item) => (
+                    <UnstyledButton
+                      key={item.label}
+                      w="100%"
+                      px={8}
+                      py={8}
+                      style={{ borderRadius: rem(8) }}
+                      onMouseEnter={(e) =>
+                        (e.currentTarget.style.background = "#f1f5f9")
+                      }
+                      onMouseLeave={(e) =>
+                        (e.currentTarget.style.background = "transparent")
+                      }
+                      onClick={() => {
+                        setOpened(false);
+                        setQuery("");
+                      }}
+                    >
+                      <Group gap={10}>
+                        <ThemeIcon
+                          size={32}
+                          radius="md"
+                          color="indigo"
+                          variant="light"
+                        >
+                          <item.icon size={15} />
+                        </ThemeIcon>
+                        <Box>
+                          <Text fz={13} fw={500}>
+                            {item.label}
+                          </Text>
+                          <Text fz={11} c="dimmed">
+                            {item.sub}
+                          </Text>
+                        </Box>
+                        <IconChevronRight
+                          size={13}
+                          color="#cbd5e1"
+                          style={{ marginLeft: "auto" }}
+                        />
+                      </Group>
+                    </UnstyledButton>
+                  ))}
+                </Box>
+              ))}
+            </Stack>
+          )}
+        </ScrollArea.Autosize>
+        <Box
+          px="md"
+          py={10}
+          style={{ borderTop: "1px solid #f1f5f9", background: "#f8fafc" }}
+        >
+          <Group gap={12}>
+            <Text fz={11} c="dimmed">
+              <kbd
+                style={{
+                  fontFamily: "monospace",
+                  background: "#e2e8f0",
+                  padding: "1px 5px",
+                  borderRadius: 4,
+                  fontSize: 10,
+                }}
+              >
+                ↵
+              </kbd>{" "}
+              to select
+            </Text>
+            <Text fz={11} c="dimmed">
+              <kbd
+                style={{
+                  fontFamily: "monospace",
+                  background: "#e2e8f0",
+                  padding: "1px 5px",
+                  borderRadius: 4,
+                  fontSize: 10,
+                }}
+              >
+                Esc
+              </kbd>{" "}
+              to close
+            </Text>
+          </Group>
+        </Box>
+      </Popover.Dropdown>
+    </Popover>
+  );
+}
+
+// ─── Notification Dropdown ────────────────────────────────────────────────────
+function NotificationBell() {
+  const [notifs, setNotifs] = useState(notifications);
+  const unread = notifs.filter((n) => !n.read).length;
+
+  const markAllRead = () =>
+    setNotifs((prev) => prev.map((n) => ({ ...n, read: true })));
+  const markRead = (id: number) =>
+    setNotifs((prev) =>
+      prev.map((n) => (n.id === id ? { ...n, read: true } : n)),
+    );
+  const dismiss = (id: number) =>
+    setNotifs((prev) => prev.filter((n) => n.id !== id));
+
+  return (
+    <Menu
+      width={380}
+      position="bottom-end"
+      shadow="lg"
+      radius="lg"
+      offset={8}
+      closeOnItemClick={false}
+    >
+      <Menu.Target>
+        <Box style={{ cursor: "pointer" }}>
+          <Indicator
+            color="red"
+            size={unread > 0 ? 18 : 0}
+            offset={4}
+            label={unread > 0 ? String(unread) : ""}
+            styles={{ indicator: { fontSize: 10, fontWeight: 700 } }}
+          >
+            <ActionIcon variant="light" color="gray" radius="xl" size="lg">
+              <IconBell size={17} />
+            </ActionIcon>
+          </Indicator>
+        </Box>
+      </Menu.Target>
+
+      <Menu.Dropdown
+        p={0}
+        style={{ border: "1px solid #e2e8f0", overflow: "hidden" }}
+      >
+        {/* Header */}
+        <Flex
+          align="center"
+          justify="space-between"
+          px="md"
+          py={14}
+          style={{ borderBottom: "1px solid #f1f5f9" }}
+        >
+          <Group gap={8}>
+            <Text fw={700} fz={14} c="dark.8">
+              Notifications
+            </Text>
+            {unread > 0 && (
+              <Badge color="red" size="sm" circle>
+                {unread}
+              </Badge>
+            )}
+          </Group>
+          {unread > 0 && (
+            <UnstyledButton onClick={markAllRead}>
+              <Text fz={12} c="indigo.5" fw={500}>
+                Mark all read
+              </Text>
+            </UnstyledButton>
+          )}
+        </Flex>
+
+        <ScrollArea.Autosize mah={400}>
+          <Stack gap={0}>
+            {notifs.map((n, i) => (
+              <Box key={n.id}>
+                <Box
+                  px="md"
+                  py={12}
+                  onClick={() => markRead(n.id)}
+                  style={{
+                    background: n.read ? "transparent" : "#eef2ff",
+                    cursor: "pointer",
+                    transition: "background 0.15s",
+                    position: "relative",
+                  }}
+                  onMouseEnter={(e) =>
+                    ((e.currentTarget as HTMLDivElement).style.background =
+                      n.read ? "#f8fafc" : "#e0e7ff")
+                  }
+                  onMouseLeave={(e) =>
+                    ((e.currentTarget as HTMLDivElement).style.background =
+                      n.read ? "transparent" : "#eef2ff")
+                  }
+                >
+                  <Group gap={12} align="flex-start">
+                    <ThemeIcon
+                      size={36}
+                      radius="xl"
+                      color={n.color}
+                      variant="light"
+                      mt={2}
+                    >
+                      <n.icon size={17} />
+                    </ThemeIcon>
+                    <Box flex={1}>
+                      <Group justify="space-between" mb={2} align="flex-start">
+                        <Text
+                          fz={13}
+                          fw={n.read ? 500 : 700}
+                          c="dark.8"
+                          style={{ flex: 1, paddingRight: 8 }}
+                        >
+                          {n.title}
+                        </Text>
+                        <Group gap={4}>
+                          {!n.read && (
+                            <Box
+                              style={{
+                                width: 7,
+                                height: 7,
+                                borderRadius: "50%",
+                                background: "#6366f1",
+                                flexShrink: 0,
+                                marginTop: 4,
+                              }}
+                            />
+                          )}
+                          <ActionIcon
+                            size="xs"
+                            variant="subtle"
+                            color="gray"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              dismiss(n.id);
+                            }}
+                          >
+                            <IconX size={11} />
+                          </ActionIcon>
+                        </Group>
+                      </Group>
+                      <Text fz={12} c="dimmed" lh={1.5} lineClamp={2}>
+                        {n.body}
+                      </Text>
+                      <Text fz={11} c="dimmed" mt={4}>
+                        {n.time}
+                      </Text>
+                    </Box>
+                  </Group>
+                </Box>
+                {i < notifs.length - 1 && <Divider />}
+              </Box>
+            ))}
+            {notifs.length === 0 && (
+              <Box p="xl" ta="center">
+                <ThemeIcon
+                  size={40}
+                  radius="xl"
+                  color="gray"
+                  variant="light"
+                  mx="auto"
+                  mb={8}
+                >
+                  <IconBell size={20} />
+                </ThemeIcon>
+                <Text fz={13} c="dimmed">
+                  All caught up!
+                </Text>
+              </Box>
+            )}
+          </Stack>
+        </ScrollArea.Autosize>
+
+        <Box
+          px="md"
+          py={12}
+          style={{ borderTop: "1px solid #f1f5f9", background: "#f8fafc" }}
+        >
+          <Button
+            variant="subtle"
+            color="indigo"
+            size="xs"
+            fullWidth
+            rightSection={<IconExternalLink size={12} />}
+          >
+            View all notifications
+          </Button>
+        </Box>
+      </Menu.Dropdown>
+    </Menu>
+  );
+}
+
+// ─── User Dropdown ────────────────────────────────────────────────────────────
+function UserMenu() {
+  const totalStudents = classes.reduce((a, c) => a + c.students, 0);
+  const totalAtRisk = classes.reduce((a, c) => a + c.atRisk, 0);
+
+  return (
+    <Menu width={280} position="bottom-end" shadow="lg" radius="lg" offset={8}>
+      <Menu.Target>
+        <UnstyledButton style={{ cursor: "pointer" }}>
+          <Group gap={10}>
+            <Avatar size={36} radius="xl" color="indigo">
+              {lecturer.avatar}
+            </Avatar>
+            <Box>
+              <Text fz={13} fw={600} lh={1.2}>
+                {lecturer.name}
+              </Text>
+              <Text fz={11} c="dimmed">
+                Lecturer
+              </Text>
+            </Box>
+          </Group>
+        </UnstyledButton>
+      </Menu.Target>
+
+      <Menu.Dropdown style={{ border: "1px solid #e2e8f0" }}>
+        {/* Profile header */}
+        <Box
+          px="md"
+          py={14}
+          style={{
+            background: "linear-gradient(135deg, #eef2ff 0%, #fff 80%)",
+            borderBottom: "1px solid #e2e8f0",
+          }}
+        >
+          <Group gap={12}>
+            <Avatar size={46} radius="xl" color="indigo" fw={700} fz={18}>
+              {lecturer.avatar}
+            </Avatar>
+            <Box>
+              <Text fz={14} fw={700} c="dark.8">
+                {lecturer.name}
+              </Text>
+              <Text fz={11} c="dimmed">
+                {lecturer.email}
+              </Text>
+              <Badge color="indigo" size="xs" radius="xl" mt={4}>
+                {lecturer.department}
+              </Badge>
+            </Box>
+          </Group>
+        </Box>
+
+        {/* Quick stats */}
+        <Box px="md" py={10} style={{ borderBottom: "1px solid #f1f5f9" }}>
+          <Grid gap={8}>
+            <Grid.Col span={4}>
+              <Box
+                ta="center"
+                p={6}
+                style={{ background: "#f8fafc", borderRadius: rem(8) }}
+              >
+                <Text fz={16} fw={800} c="indigo.6">
+                  {classes.length}
+                </Text>
+                <Text fz={10} c="dimmed">
+                  Classes
+                </Text>
+              </Box>
+            </Grid.Col>
+            <Grid.Col span={4}>
+              <Box
+                ta="center"
+                p={6}
+                style={{ background: "#f8fafc", borderRadius: rem(8) }}
+              >
+                <Text fz={16} fw={800} c="teal.6">
+                  {totalStudents}
+                </Text>
+                <Text fz={10} c="dimmed">
+                  Students
+                </Text>
+              </Box>
+            </Grid.Col>
+            <Grid.Col span={4}>
+              <Box
+                ta="center"
+                p={6}
+                style={{ background: "#fff5f5", borderRadius: rem(8) }}
+              >
+                <Text fz={16} fw={800} c="red.6">
+                  {totalAtRisk}
+                </Text>
+                <Text fz={10} c="dimmed">
+                  At Risk
+                </Text>
+              </Box>
+            </Grid.Col>
+          </Grid>
+        </Box>
+
+        <Box py={6}>
+          <Menu.Item leftSection={<IconUser size={15} />}>My Profile</Menu.Item>
+          <Menu.Item leftSection={<IconBuildingCommunity size={15} />}>
+            Department Portal
+          </Menu.Item>
+          <Menu.Item leftSection={<IconBrain size={15} />}>
+            AI Insights
+            <Badge size="xs" color="indigo" ml={6}>
+              3 new
+            </Badge>
+          </Menu.Item>
+          <Menu.Item leftSection={<IconShieldCheck size={15} />}>
+            Privacy & Data
+          </Menu.Item>
+          <Menu.Item leftSection={<IconKey size={15} />}>
+            Change Password
+          </Menu.Item>
+          <Menu.Item leftSection={<IconSettings size={15} />}>
+            Account Settings
+          </Menu.Item>
+        </Box>
+
+        <Divider />
+
+        <Box py={6}>
+          <Menu.Item leftSection={<IconHelp size={15} />} color="gray">
+            Help & Documentation
+          </Menu.Item>
+          <Menu.Item leftSection={<IconLogout size={15} />} color="red">
+            Sign Out
+          </Menu.Item>
+        </Box>
+      </Menu.Dropdown>
+    </Menu>
+  );
+}
+
 // ─── Sidebar ─────────────────────────────────────────────────────────────────
 function Sidebar() {
   const links = [
@@ -328,7 +1000,6 @@ function Sidebar() {
     { icon: IconFileExport, label: "Reports" },
     { icon: IconSettings, label: "Settings" },
   ];
-
   return (
     <Box
       style={{
@@ -458,28 +1129,13 @@ function Header() {
         background: "#fff",
         position: "sticky",
         top: 0,
-        zIndex: 10,
+        zIndex: 200,
       }}
     >
-      <Group
-        gap={10}
-        style={{
-          background: "#f8fafc",
-          borderRadius: rem(10),
-          padding: "8px 14px",
-          width: 300,
-        }}
-      >
-        <IconSearch size={15} color="#94a3b8" />
-        <Text fz={13} c="dimmed">
-          Search students, classes…
-        </Text>
-      </Group>
-
+      <SearchBar />
       <Text fz={13} c="dimmed" fw={500}>
         Thursday, 14 May 2026
       </Text>
-
       <Group gap={12}>
         <Button
           size="xs"
@@ -490,24 +1146,8 @@ function Header() {
         >
           New Class
         </Button>
-        <Indicator color="red" size={8} offset={3}>
-          <ActionIcon variant="light" color="gray" radius="xl" size="lg">
-            <IconBell size={17} />
-          </ActionIcon>
-        </Indicator>
-        <Group gap={10}>
-          <Avatar size={36} radius="xl" color="indigo">
-            {lecturer.avatar}
-          </Avatar>
-          <Box>
-            <Text fz={13} fw={600} lh={1.2}>
-              {lecturer.name}
-            </Text>
-            <Text fz={11} c="dimmed">
-              Lecturer
-            </Text>
-          </Box>
-        </Group>
+        <NotificationBell />
+        <UserMenu />
       </Group>
     </Flex>
   );
@@ -1146,10 +1786,8 @@ export default function LecturerDashboard() {
 
       <Flex style={{ minHeight: "100vh" }}>
         <Sidebar />
-
         <Box flex={1} style={{ overflow: "auto" }}>
           <Header />
-
           <Box px={28} py={24}>
             <Flex justify="space-between" align="flex-start" mb="xl">
               <Box>

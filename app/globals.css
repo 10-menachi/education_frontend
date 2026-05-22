@@ -42,3 +42,11 @@ h5,
 h6 {
   font-family: var(--font-heading), sans-serif;
 }
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scrollbar {
+  scrollbar-width: none;
+}
