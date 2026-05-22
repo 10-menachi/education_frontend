@@ -40,7 +40,7 @@ import {
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
-type ComponentScore = { score: number | null; max: number; weight: number };
+type CourseScore = { score: number | null; max: number; weight: number };
 
 interface Course {
   id: string;
@@ -48,9 +48,9 @@ interface Course {
   name: string;
   lecturer: string;
   lecturerInitials: string;
-  cat1: ComponentScore;
-  cat2: ComponentScore;
-  exam: ComponentScore;
+  cat1: CourseScore;
+  cat2: CourseScore;
+  exam: CourseScore;
   trend: "up" | "down" | "stable";
   published: boolean;
   creditHours: number;

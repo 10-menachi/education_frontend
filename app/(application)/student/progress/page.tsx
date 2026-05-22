@@ -33,7 +33,7 @@ import {
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
-type ComponentScore = { score: number | null; max: number; weight: number };
+type CourseScore = { score: number | null; max: number; weight: number };
 
 interface Course {
   id: string;
@@ -41,9 +41,9 @@ interface Course {
   name: string;
   lecturer: string;
   lecturerInitials: string;
-  cat1: ComponentScore;
-  cat2: ComponentScore;
-  exam: ComponentScore;
+  cat1: CourseScore;
+  cat2: CourseScore;
+  exam: CourseScore;
   trend: "up" | "down" | "stable";
   published: boolean;
   creditHours: number;
@@ -172,7 +172,7 @@ function gradeLabel(total: number | null): { label: string; color: string } {
   return { label: "E", color: "red" };
 }
 
-function componentPct(item: ComponentScore): number {
+function componentPct(item: CourseScore): number {
   if (item.score === null) return 0;
   return Math.round((item.score / item.max) * 100);
 }
