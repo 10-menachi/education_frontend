@@ -60,46 +60,105 @@ export const student = {
   overallGrade: 68,
 };
 
-export const courses = [
+export const courses: Course[] = [
   {
+    id: "cs-301",
     code: "CS 301",
     name: "Database Systems",
+    lecturer: "Dr. Amina Osei",
+    lecturerInitials: "AO",
     cat1: { score: 12, max: 30, weight: 15 },
     cat2: { score: 15, max: 30, weight: 15 },
     exam: { score: 34, max: 70, weight: 70 },
     published: true,
-    avg: 64,
     trend: "down",
+    creditHours: 3,
+    description:
+      "Covers relational database design, SQL, normalization, transactions, and an introduction to NoSQL systems.",
+    resources: [
+      { label: "ER Diagram Guide", type: "pdf" },
+      { label: "SQL Crash Course", type: "video" },
+      { label: "PostgreSQL Docs", type: "link" },
+    ],
+    assessmentHistory: [
+      { label: "CAT 1", score: 12, max: 30 },
+      { label: "CAT 2", score: 15, max: 30 },
+      { label: "Exam", score: 34, max: 70 },
+    ],
   },
   {
+    id: "cs-312",
     code: "CS 312",
     name: "Algorithms & Data Structures",
+    lecturer: "Prof. James Kariuki",
+    lecturerInitials: "JK",
     cat1: { score: 24, max: 30, weight: 15 },
     cat2: { score: 22, max: 30, weight: 15 },
     exam: { score: 55, max: 70, weight: 70 },
     published: true,
-    avg: 78,
     trend: "up",
+    creditHours: 4,
+    description:
+      "In-depth study of algorithm design paradigms, complexity analysis, sorting, graphs, and advanced data structures.",
+    resources: [
+      { label: "Big-O Cheat Sheet", type: "pdf" },
+      { label: "Graph Algorithms Lecture", type: "video" },
+      { label: "Visualgo - Algorithm Visualizer", type: "link" },
+    ],
+    assessmentHistory: [
+      { label: "CAT 1", score: 24, max: 30 },
+      { label: "CAT 2", score: 22, max: 30 },
+      { label: "Exam", score: 55, max: 70 },
+    ],
   },
   {
+    id: "cs-325",
     code: "CS 325",
     name: "Software Engineering",
+    lecturer: "Dr. Fatuma Wanjiku",
+    lecturerInitials: "FW",
     cat1: { score: 27, max: 30, weight: 15 },
     cat2: { score: 25, max: 30, weight: 15 },
     exam: { score: null, max: 70, weight: 70 },
     published: false,
-    avg: null,
     trend: null,
+    creditHours: 3,
+    description:
+      "Explores the software development lifecycle, agile methodologies, design patterns, testing strategies, and project management.",
+    resources: [
+      { label: "Agile Manifesto", type: "link" },
+      { label: "UML Diagrams Overview", type: "pdf" },
+      { label: "Clean Code Principles", type: "video" },
+    ],
+    assessmentHistory: [
+      { label: "CAT 1", score: 27, max: 30 },
+      { label: "CAT 2", score: 25, max: 30 },
+    ],
   },
   {
+    id: "cs-330",
     code: "CS 330",
     name: "Computer Networks",
+    lecturer: "Dr. Brian Muthoni",
+    lecturerInitials: "BM",
     cat1: { score: 19, max: 30, weight: 15 },
     cat2: { score: 20, max: 30, weight: 15 },
     exam: { score: 48, max: 70, weight: 70 },
     published: true,
-    avg: 72,
     trend: "stable",
+    creditHours: 3,
+    description:
+      "Examines network architecture, the OSI and TCP/IP models, routing protocols, security fundamentals, and wireless networking.",
+    resources: [
+      { label: "TCP/IP Reference Sheet", type: "pdf" },
+      { label: "How the Internet Works", type: "video" },
+      { label: "Wireshark Tutorial", type: "link" },
+    ],
+    assessmentHistory: [
+      { label: "CAT 1", score: 19, max: 30 },
+      { label: "CAT 2", score: 20, max: 30 },
+      { label: "Exam", score: 48, max: 70 },
+    ],
   },
 ];
 
