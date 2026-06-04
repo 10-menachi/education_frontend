@@ -5,7 +5,14 @@ import React from "react";
 const NavActions = () => {
   return (
     <Group gap={12} visibleFrom="md">
-      <Button variant="subtle" color="dark" size="sm" radius="xl">
+      <Button
+        component={Link}
+        href="/login"
+        variant="subtle"
+        color="dark"
+        size="sm"
+        radius="xl"
+      >
         Sign in
       </Button>
       <Button

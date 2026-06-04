@@ -86,21 +86,6 @@ export default function CTA() {
           >
             Get Started
           </Button>
-          <Button
-            size="xl"
-            radius="xl"
-            fw={600}
-            variant="outline"
-            leftSection={<IconMail size={18} />}
-            style={{
-              borderColor: "rgba(255,255,255,0.4)",
-              color: "#fff",
-              paddingInline: 32,
-              height: 58,
-            }}
-          >
-            Contact the Team
-          </Button>
         </Group>
 
         <Group justify="center" gap={32}>

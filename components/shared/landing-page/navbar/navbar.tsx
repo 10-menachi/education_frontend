@@ -2,7 +2,6 @@ import { Box, Container, Flex, UnstyledButton } from "@mantine/core";
 import { IconMenu2, IconX } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import Logo from "../../logo";
-import NavLinks from "./nav-links";
 import NavActions from "./nav-actions";
 import MobileNav from "./mobile-nav";
 
@@ -34,7 +33,7 @@ export default function Navbar() {
         <Flex align="center" justify="space-between">
           <Logo />
 
-          <NavLinks />
+          {/* <NavLinks /> */}
 
           <NavActions />
 
