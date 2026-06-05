@@ -7,6 +7,7 @@ import { steps } from "@/lib/utils/constants/data";
 import Personal from "../steps/personal";
 import Professional from "../steps/professional";
 import FormNavigation from "./form-navigation";
+import Link from "next/link";
 
 const RegistrationForm = () => {
   const [active, setActive] = useState(0);
@@ -74,7 +75,14 @@ const RegistrationForm = () => {
       </Title>
       <Text fz={13} c="dimmed" mb={28}>
         Already registered?{" "}
-        <Text span c="indigo.5" fw={600} style={{ cursor: "pointer" }}>
+        <Text
+          component={Link}
+          href="/login"
+          span
+          c="indigo.5"
+          fw={600}
+          style={{ cursor: "pointer" }}
+        >
           Sign in
         </Text>
       </Text>
