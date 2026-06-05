@@ -9,16 +9,16 @@ import {
   MantineProvider,
   PasswordInput,
   Text,
-  TextInput,
   ThemeIcon,
   Title,
   createTheme,
   rem,
 } from "@mantine/core";
 import {
+  IconArrowLeft,
   IconChartBar,
+  IconCheck,
   IconLock,
-  IconMail,
   IconShieldCheck,
 } from "@tabler/icons-react";
 
@@ -123,12 +123,12 @@ function LeftPanel() {
         </Group>
 
         <Title order={1} fz={30} fw={800} c="white" lh={1.3} mb={12}>
-          Welcome back.
+          Almost there.
           <br />
           <Text span c="indigo.3">
-            Your progress
+            Set a new
             <br />
-            awaits you.
+            password.
           </Text>
         </Title>
         <Text
@@ -137,8 +137,8 @@ function LeftPanel() {
           lh={1.9}
           style={{ maxWidth: 300 }}
         >
-          Sign in to access your dashboard, track performance, and stay on top
-          of your academic journey.
+          Choose something strong and memorable. You won't be asked for it again
+          until your next login.
         </Text>
       </Box>
 
@@ -153,10 +153,10 @@ function LeftPanel() {
           </ThemeIcon>
           <Box>
             <Text fz={12} fw={600} c="white" mb={2}>
-              Secure access
+              This link is single-use
             </Text>
             <Text fz={11} c="rgba(255,255,255,0.4)" lh={1.6}>
-              Your credentials are encrypted and never shared.
+              Once your password is reset, this link will no longer be valid.
             </Text>
           </Box>
         </Group>
@@ -168,22 +168,74 @@ function LeftPanel() {
   );
 }
 
-export default function LoginPage() {
-  const [email, setEmail] = useState("");
+export default function ResetPasswordPage() {
   const [password, setPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
+  const [done, setDone] = useState(false);
 
-  const canSubmit = email.trim() !== "" && password.length >= 1;
+  const mismatch = confirm.length > 0 && password !== confirm;
+  const canSubmit = password.length >= 6 && password === confirm;
+
+  if (done) {
+    return (
+      <MantineProvider theme={theme}>
+        <style>{`@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');*{box-sizing:border-box;}body{margin:0;}`}</style>
+        <Flex style={{ height: "100vh", overflow: "hidden" }}>
+          <Box style={{ width: "42%", flexShrink: 0 }}>
+            <LeftPanel />
+          </Box>
+          <Flex
+            flex={1}
+            align="center"
+            justify="center"
+            style={{ background: "#f8fafc" }}
+          >
+            <Box ta="center" style={{ maxWidth: 320 }}>
+              <Box
+                mx="auto"
+                mb={20}
+                style={{
+                  width: 64,
+                  height: 64,
+                  borderRadius: "50%",
+                  background: "linear-gradient(135deg,#14b8a6,#6366f1)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <IconCheck size={30} color="white" />
+              </Box>
+              <Title order={2} fz={22} fw={800} c="dark.9" mb={8}>
+                Password reset!
+              </Title>
+              <Text fz={13} c="dimmed" lh={1.8} mb={28}>
+                Your password has been updated successfully. You can now sign in
+                with your new credentials.
+              </Text>
+              <Button
+                radius="xl"
+                color="indigo"
+                fullWidth
+                leftSection={<IconArrowLeft size={13} />}
+              >
+                Go to Login
+              </Button>
+            </Box>
+          </Flex>
+        </Flex>
+      </MantineProvider>
+    );
+  }
 
   return (
     <MantineProvider theme={theme}>
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');*{box-sizing:border-box;}body{margin:0;}`}</style>
       <Flex style={{ height: "100vh", overflow: "hidden" }}>
-        {/* Left — sticky decorative panel */}
         <Box style={{ width: "42%", flexShrink: 0 }}>
           <LeftPanel />
         </Box>
 
-        {/* Right — login form */}
         <Flex
           flex={1}
           align="center"
@@ -198,33 +250,19 @@ export default function LoginPage() {
               mb={6}
               style={{ textTransform: "uppercase", letterSpacing: "0.1em" }}
             >
-              Sign In
+              Password Reset
             </Text>
             <Title order={2} fz={24} fw={800} c="dark.9" mb={2}>
-              Welcome back
+              Set a new password
             </Title>
             <Text fz={13} c="dimmed" mb={28}>
-              Don't have an account?{" "}
-              <Text span c="indigo.5" fw={600} style={{ cursor: "pointer" }}>
-                Register here
-              </Text>
+              Must be at least 6 characters.
             </Text>
 
-            {/* Fields */}
             <Box mb={14}>
-              <TextInput
-                label="Email Address"
-                placeholder="your@university.edu"
-                leftSection={<IconMail size={14} />}
-                value={email}
-                onChange={(e) => setEmail(e.currentTarget.value)}
-                radius="md"
-              />
-            </Box>
-            <Box mb={6}>
               <PasswordInput
-                label="Password"
-                placeholder="Enter your password"
+                label="New Password"
+                placeholder="Min. 6 characters"
                 leftSection={<IconLock size={14} />}
                 value={password}
                 onChange={(e) => setPassword(e.currentTarget.value)}
@@ -232,12 +270,17 @@ export default function LoginPage() {
               />
             </Box>
 
-            {/* Forgot password */}
-            <Flex justify="flex-end" mb={24}>
-              <Text fz={12} c="indigo.5" fw={600} style={{ cursor: "pointer" }}>
-                Forgot password?
-              </Text>
-            </Flex>
+            <Box mb={24}>
+              <PasswordInput
+                label="Confirm Password"
+                placeholder="Repeat new password"
+                leftSection={<IconLock size={14} />}
+                value={confirm}
+                onChange={(e) => setConfirm(e.currentTarget.value)}
+                radius="md"
+                error={mismatch ? "Passwords don't match" : undefined}
+              />
+            </Box>
 
             <Button
               fullWidth
@@ -245,9 +288,19 @@ export default function LoginPage() {
               size="md"
               color="indigo"
               disabled={!canSubmit}
+              onClick={() => setDone(true)}
             >
-              Sign In
+              Reset Password
             </Button>
+
+            <Flex justify="center" mt={20}>
+              <Group gap={6} style={{ cursor: "pointer" }}>
+                <IconArrowLeft size={13} color="#6366f1" />
+                <Text fz={13} c="indigo.5" fw={600}>
+                  Back to Login
+                </Text>
+              </Group>
+            </Flex>
           </Box>
         </Flex>
       </Flex>

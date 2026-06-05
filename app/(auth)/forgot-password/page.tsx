@@ -7,7 +7,6 @@ import {
   Flex,
   Group,
   MantineProvider,
-  PasswordInput,
   Text,
   TextInput,
   ThemeIcon,
@@ -16,8 +15,9 @@ import {
   rem,
 } from "@mantine/core";
 import {
+  IconArrowLeft,
   IconChartBar,
-  IconLock,
+  IconCheck,
   IconMail,
   IconShieldCheck,
 } from "@tabler/icons-react";
@@ -123,12 +123,10 @@ function LeftPanel() {
         </Group>
 
         <Title order={1} fz={30} fw={800} c="white" lh={1.3} mb={12}>
-          Welcome back.
+          Happens to
           <br />
           <Text span c="indigo.3">
-            Your progress
-            <br />
-            awaits you.
+            the best of us.
           </Text>
         </Title>
         <Text
@@ -137,8 +135,8 @@ function LeftPanel() {
           lh={1.9}
           style={{ maxWidth: 300 }}
         >
-          Sign in to access your dashboard, track performance, and stay on top
-          of your academic journey.
+          Enter your institutional email and we'll send you a link to reset your
+          password right away.
         </Text>
       </Box>
 
@@ -153,10 +151,11 @@ function LeftPanel() {
           </ThemeIcon>
           <Box>
             <Text fz={12} fw={600} c="white" mb={2}>
-              Secure access
+              Reset links expire in 15 minutes
             </Text>
             <Text fz={11} c="rgba(255,255,255,0.4)" lh={1.6}>
-              Your credentials are encrypted and never shared.
+              For your security, password reset links are single-use and
+              time-limited.
             </Text>
           </Box>
         </Group>
@@ -168,22 +167,88 @@ function LeftPanel() {
   );
 }
 
-export default function LoginPage() {
+export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [sent, setSent] = useState(false);
 
-  const canSubmit = email.trim() !== "" && password.length >= 1;
+  const canSubmit = email.trim() !== "";
+
+  if (sent) {
+    return (
+      <MantineProvider theme={theme}>
+        <style>{`@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');*{box-sizing:border-box;}body{margin:0;}`}</style>
+        <Flex style={{ height: "100vh", overflow: "hidden" }}>
+          <Box style={{ width: "42%", flexShrink: 0 }}>
+            <LeftPanel />
+          </Box>
+          <Flex
+            flex={1}
+            align="center"
+            justify="center"
+            style={{ background: "#f8fafc" }}
+          >
+            <Box ta="center" style={{ maxWidth: 320 }}>
+              <Box
+                mx="auto"
+                mb={20}
+                style={{
+                  width: 64,
+                  height: 64,
+                  borderRadius: "50%",
+                  background: "linear-gradient(135deg,#14b8a6,#6366f1)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <IconCheck size={30} color="white" />
+              </Box>
+              <Title order={2} fz={22} fw={800} c="dark.9" mb={8}>
+                Check your inbox
+              </Title>
+              <Text fz={13} c="dimmed" lh={1.8} mb={6}>
+                We've sent a password reset link to
+              </Text>
+              <Text fz={13} fw={600} c="dark.8" mb={28}>
+                {email}
+              </Text>
+              <Text fz={11} c="dimmed" lh={1.7} mb={28}>
+                Didn't receive it? Check your spam folder or{" "}
+                <Text
+                  span
+                  c="indigo.5"
+                  fw={600}
+                  style={{ cursor: "pointer" }}
+                  onClick={() => setSent(false)}
+                >
+                  try again
+                </Text>
+                .
+              </Text>
+              <Button
+                radius="xl"
+                color="indigo"
+                variant="light"
+                fullWidth
+                leftSection={<IconArrowLeft size={13} />}
+              >
+                Back to Login
+              </Button>
+            </Box>
+          </Flex>
+        </Flex>
+      </MantineProvider>
+    );
+  }
 
   return (
     <MantineProvider theme={theme}>
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');*{box-sizing:border-box;}body{margin:0;}`}</style>
       <Flex style={{ height: "100vh", overflow: "hidden" }}>
-        {/* Left — sticky decorative panel */}
         <Box style={{ width: "42%", flexShrink: 0 }}>
           <LeftPanel />
         </Box>
 
-        {/* Right — login form */}
         <Flex
           flex={1}
           align="center"
@@ -198,20 +263,16 @@ export default function LoginPage() {
               mb={6}
               style={{ textTransform: "uppercase", letterSpacing: "0.1em" }}
             >
-              Sign In
+              Password Reset
             </Text>
             <Title order={2} fz={24} fw={800} c="dark.9" mb={2}>
-              Welcome back
+              Forgot your password?
             </Title>
             <Text fz={13} c="dimmed" mb={28}>
-              Don't have an account?{" "}
-              <Text span c="indigo.5" fw={600} style={{ cursor: "pointer" }}>
-                Register here
-              </Text>
+              No worries. Enter your email and we'll send you a reset link.
             </Text>
 
-            {/* Fields */}
-            <Box mb={14}>
+            <Box mb={24}>
               <TextInput
                 label="Email Address"
                 placeholder="your@university.edu"
@@ -221,23 +282,6 @@ export default function LoginPage() {
                 radius="md"
               />
             </Box>
-            <Box mb={6}>
-              <PasswordInput
-                label="Password"
-                placeholder="Enter your password"
-                leftSection={<IconLock size={14} />}
-                value={password}
-                onChange={(e) => setPassword(e.currentTarget.value)}
-                radius="md"
-              />
-            </Box>
-
-            {/* Forgot password */}
-            <Flex justify="flex-end" mb={24}>
-              <Text fz={12} c="indigo.5" fw={600} style={{ cursor: "pointer" }}>
-                Forgot password?
-              </Text>
-            </Flex>
 
             <Button
               fullWidth
@@ -245,9 +289,19 @@ export default function LoginPage() {
               size="md"
               color="indigo"
               disabled={!canSubmit}
+              onClick={() => setSent(true)}
             >
-              Sign In
+              Send Reset Link
             </Button>
+
+            <Flex justify="center" mt={20}>
+              <Group gap={6} style={{ cursor: "pointer" }}>
+                <IconArrowLeft size={13} color="#6366f1" />
+                <Text fz={13} c="indigo.5" fw={600}>
+                  Back to Login
+                </Text>
+              </Group>
+            </Flex>
           </Box>
         </Flex>
       </Flex>
