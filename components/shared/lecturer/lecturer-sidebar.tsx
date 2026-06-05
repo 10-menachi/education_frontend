@@ -1,3 +1,5 @@
+"use client";
+
 import { lecturer, links } from "@/lib/utils/constants/data";
 import {
   Avatar,
@@ -11,8 +13,11 @@ import {
   Text,
 } from "@mantine/core";
 import { IconChartBar, IconLogout } from "@tabler/icons-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function LecturerSidebar() {
+  const pathname = usePathname();
   return (
     <Box
       style={{
@@ -61,41 +66,46 @@ export default function LecturerSidebar() {
       </Text>
 
       <Stack gap={2} flex={1}>
-        {links.map((l) => (
-          <NavLink
-            key={l.label}
-            label={
-              <Group justify="space-between">
-                <Text
-                  fz={13}
-                  fw={l.active ? 600 : 400}
-                  c={l.active ? "white" : "rgba(255,255,255,0.55)"}
-                >
-                  {l.label}
-                </Text>
-                {l.badge && (
-                  <Badge size="xs" color="indigo" circle>
-                    {l.badge}
-                  </Badge>
-                )}
-              </Group>
-            }
-            leftSection={
-              <l.icon
-                size={17}
-                color={l.active ? "#818cf8" : "rgba(255,255,255,0.38)"}
-              />
-            }
-            style={{
-              borderRadius: rem(10),
-              background: l.active ? "rgba(99,102,241,0.15)" : "transparent",
-              borderLeft: l.active
-                ? "2px solid #6366f1"
-                : "2px solid transparent",
-              padding: "10px 12px",
-            }}
-          />
-        ))}
+        {links.map((l) => {
+          const isActive = pathname === l.href;
+          return (
+            <NavLink
+              key={l.label}
+              component={Link}
+              href={l.href}
+              label={
+                <Group justify="space-between">
+                  <Text
+                    fz={13}
+                    fw={isActive ? 600 : 400}
+                    c={isActive ? "white" : "rgba(255,255,255,0.55)"}
+                  >
+                    {l.label}
+                  </Text>
+                  {l.badge && (
+                    <Badge size="xs" color="indigo" circle>
+                      {l.badge}
+                    </Badge>
+                  )}
+                </Group>
+              }
+              leftSection={
+                <l.icon
+                  size={17}
+                  color={isActive ? "#818cf8" : "rgba(255,255,255,0.38)"}
+                />
+              }
+              style={{
+                borderRadius: rem(10),
+                background: isActive ? "rgba(99,102,241,0.15)" : "transparent",
+                borderLeft: isActive
+                  ? "2px solid #6366f1"
+                  : "2px solid transparent",
+                padding: "10px 12px",
+              }}
+            />
+          );
+        })}
       </Stack>
 
       <Divider color="rgba(255,255,255,0.08)" mb={16} />

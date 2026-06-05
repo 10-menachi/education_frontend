@@ -739,10 +739,21 @@ export const lecturerSearchSuggestions = [
 ];
 
 export const links = [
-  { icon: IconFolderOpen, label: "Dashboard", active: true },
-  { icon: IconUsersGroup, label: "My Classes" },
-  { icon: IconChartLine, label: "Analytics" },
-  { icon: IconBrain, label: "AI Insights", badge: "3" },
-  { icon: IconFileExport, label: "Reports" },
-  { icon: IconSettings, label: "Settings" },
+  {
+    icon: IconFolderOpen,
+    label: "Dashboard",
+    active: true,
+    href: "/lecturer/dashboard",
+  },
+  { icon: IconUsersGroup, label: "My Courses", href: "/lecturer/courses" },
+  { icon: IconUsers, label: "Students", href: "/lecturer/students" },
+  { icon: IconChartLine, label: "Analytics", href: "/lecturer/analytics" },
+  {
+    icon: IconBrain,
+    label: "AI Insights",
+    badge: "3",
+    href: "/lecturer/ai-insights",
+  },
+  { icon: IconFileExport, label: "Reports", href: "/lecturer/reports" },
+  { icon: IconSettings, label: "Settings", href: "/lecturer/settings" },
 ];
