@@ -12,7 +12,12 @@ import {
   Title,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { IconArrowLeft, IconCheck, IconLock } from "@tabler/icons-react";
+import {
+  IconArrowLeft,
+  IconCheck,
+  IconLock,
+  IconShieldCheck,
+} from "@tabler/icons-react";
 import { theme } from "@/lib/utils/constants/localization";
 import LeftPanel from "@/components/auth/left-panel";
 
@@ -44,7 +49,26 @@ export default function ResetPasswordPage() {
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');*{box-sizing:border-box;}body{margin:0;}`}</style>
       <Flex style={{ height: "100vh", overflow: "hidden" }}>
         <Box style={{ width: "42%", flexShrink: 0 }}>
-          <LeftPanel />
+          <LeftPanel
+            headline={
+              <>
+                Almost there.
+                <br />
+                <Text span c="indigo.3">
+                  Set a new
+                  <br />
+                  password.
+                </Text>
+              </>
+            }
+            subtext="Choose something strong and memorable. You won't be asked for it again until your next login."
+            badge={{
+              icon: IconShieldCheck,
+              title: "This link is single-use",
+              description:
+                "Once your password is reset, this link will no longer be valid.",
+            }}
+          />
         </Box>
 
         <Flex

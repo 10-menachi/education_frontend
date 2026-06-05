@@ -1,9 +1,10 @@
 "use client";
 
-import { Box, Flex, MantineProvider } from "@mantine/core";
+import { Box, Flex, MantineProvider, Text } from "@mantine/core";
 import { theme } from "@/lib/utils/constants/localization";
 import LeftPanel from "@/components/auth/left-panel";
 import RegistrationForm from "@/components/auth/register/registration-form/registration-form";
+import { IconShieldCheck } from "@tabler/icons-react";
 
 export default function LecturerRegisterPage() {
   return (
@@ -19,7 +20,26 @@ export default function LecturerRegisterPage() {
             height: "100vh",
           }}
         >
-          <LeftPanel />
+          <LeftPanel
+            headline={
+              <>
+                Educator portal.
+                <br />
+                <Text span c="indigo.3">
+                  Your classroom,
+                  <br />
+                  your data.
+                </Text>
+              </>
+            }
+            subtext="Register to manage your classes, track student performance, and get AI-powered insights — all in one place."
+            badge={{
+              icon: IconShieldCheck,
+              title: "Admin-approved access",
+              description:
+                "Once approved, your login credentials will be sent to your institutional email.",
+            }}
+          />
         </Box>
 
         <Flex

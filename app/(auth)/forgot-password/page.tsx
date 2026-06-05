@@ -12,7 +12,12 @@ import {
   Title,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { IconArrowLeft, IconCheck, IconMail } from "@tabler/icons-react";
+import {
+  IconArrowLeft,
+  IconCheck,
+  IconClock,
+  IconMail,
+} from "@tabler/icons-react";
 import { theme } from "@/lib/utils/constants/localization";
 import LeftPanel from "@/components/auth/left-panel";
 import Link from "next/link";
@@ -42,7 +47,24 @@ export default function ForgotPasswordPage() {
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');*{box-sizing:border-box;}body{margin:0;}`}</style>
       <Flex style={{ height: "100vh", overflow: "hidden" }}>
         <Box style={{ width: "42%", flexShrink: 0 }}>
-          <LeftPanel />
+          <LeftPanel
+            headline={
+              <>
+                Happens to
+                <br />
+                <Text span c="indigo.3">
+                  the best of us.
+                </Text>
+              </>
+            }
+            subtext="Enter your institutional email and we'll send you a link to reset your password right away."
+            badge={{
+              icon: IconClock,
+              title: "Reset links expire in 15 minutes",
+              description:
+                "For your security, password reset links are single-use and time-limited.",
+            }}
+          />
         </Box>
 
         <Flex

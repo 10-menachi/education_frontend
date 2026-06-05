@@ -1,8 +1,22 @@
 import { Box, Group, Text, ThemeIcon, Title } from "@mantine/core";
-import { IconChartBar, IconShieldCheck } from "@tabler/icons-react";
 import Logo from "../shared/logo";
+import { FC, ReactNode } from "react";
 
-export default function LeftPanel() {
+type LeftPanelProps = {
+  headline: ReactNode;
+  subtext: string;
+  badge?: {
+    icon: FC<{ size?: number; color?: string }>;
+    title: string;
+    description: string;
+  };
+};
+
+export default function LeftPanel({
+  headline,
+  subtext,
+  badge,
+}: LeftPanelProps) {
   return (
     <Box
       style={{
@@ -17,6 +31,7 @@ export default function LeftPanel() {
         overflow: "hidden",
       }}
     >
+      {/* Decorative orbs */}
       <Box
         style={{
           position: "absolute",
@@ -48,13 +63,7 @@ export default function LeftPanel() {
         <Logo />
 
         <Title order={1} fz={30} fw={800} c="white" lh={1.3} mb={12}>
-          Welcome back.
-          <br />
-          <Text span c="indigo.3">
-            Your progress
-            <br />
-            awaits you.
-          </Text>
+          {headline}
         </Title>
         <Text
           fz={13}
@@ -62,29 +71,30 @@ export default function LeftPanel() {
           lh={1.9}
           style={{ maxWidth: 300 }}
         >
-          Sign in to access your dashboard, track performance, and stay on top
-          of your academic journey.
+          {subtext}
         </Text>
       </Box>
 
       <Box>
-        <Group gap={10} align="flex-start" mb={24}>
-          <ThemeIcon
-            size={32}
-            radius="md"
-            style={{ background: "rgba(99,102,241,0.2)", flexShrink: 0 }}
-          >
-            <IconShieldCheck size={15} color="#818cf8" />
-          </ThemeIcon>
-          <Box>
-            <Text fz={12} fw={600} c="white" mb={2}>
-              Secure access
-            </Text>
-            <Text fz={11} c="rgba(255,255,255,0.4)" lh={1.6}>
-              Your credentials are encrypted and never shared.
-            </Text>
-          </Box>
-        </Group>
+        {badge && (
+          <Group gap={10} align="flex-start" mb={24}>
+            <ThemeIcon
+              size={32}
+              radius="md"
+              style={{ background: "rgba(99,102,241,0.2)", flexShrink: 0 }}
+            >
+              <badge.icon size={15} color="#818cf8" />
+            </ThemeIcon>
+            <Box>
+              <Text fz={12} fw={600} c="white" mb={2}>
+                {badge.title}
+              </Text>
+              <Text fz={11} c="rgba(255,255,255,0.4)" lh={1.6}>
+                {badge.description}
+              </Text>
+            </Box>
+          </Group>
+        )}
         <Text fz={11} c="rgba(255,255,255,0.2)">
           © 2026 Vibetech Education
         </Text>
