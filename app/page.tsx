@@ -1,6 +1,6 @@
 "use client";
 
-import AISpotlight from "@/components/shared/landing-page/ai-spotlight";
+import AISpotlight from "@/components/shared/landing-page/ai-spotlight/ai-spotlight";
 import CTA from "@/components/shared/landing-page/cta";
 import Features from "@/components/shared/landing-page/features";
 import Footer from "@/components/shared/landing-page/footer";
