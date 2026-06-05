@@ -431,3 +431,22 @@ export const problems = [
     body: "Without proactive monitoring, struggling students only surface at the end of semester — too late for meaningful intervention.",
   },
 ];
+
+export const departments = [
+  "Computer Science",
+  "Electrical Engineering",
+  "Mechanical Engineering",
+  "Information Technology",
+  "Mathematics",
+  "Physics",
+  "Business & Economics",
+];
+export const ranks = [
+  "Assistant Lecturer",
+  "Lecturer",
+  "Senior Lecturer",
+  "Associate Professor",
+  "Professor",
+];
+
+export const steps = ["Personal", "Professional"];
