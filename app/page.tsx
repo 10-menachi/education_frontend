@@ -4,7 +4,7 @@ import AISpotlight from "@/components/shared/landing-page/ai-spotlight";
 import CTA from "@/components/shared/landing-page/cta";
 import Features from "@/components/shared/landing-page/features";
 import Footer from "@/components/shared/landing-page/footer";
-import Hero from "@/components/shared/landing-page/hero";
+import Hero from "@/components/shared/landing-page/hero/hero";
 import HowItWorks from "@/components/shared/landing-page/how-it-works";
 import Navbar from "@/components/shared/landing-page/navbar/navbar";
 import Problem from "@/components/shared/landing-page/problem";
