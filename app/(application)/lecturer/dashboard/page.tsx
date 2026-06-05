@@ -1,7 +1,7 @@
 "use client";
 
 import LecturerAIInsightsPanel from "@/components/shared/lecturer/dashboard/lecturer-ai-insights-panel";
-import LecturerAtRiskTable from "@/components/shared/lecturer/dashboard/lecturer-at-risk-table";
+import LecturerAtRiskTable from "@/components/shared/lecturer/dashboard/lecturer-at-risk-table/lecturer-at-risk-table";
 import LecturerClassCards from "@/components/shared/lecturer/dashboard/lecturer-class-cards";
 import LecturerDashboardRightPanel from "@/components/shared/lecturer/dashboard/lecturer-dashboard-right-panel";
 import LecturerStatsStrip from "@/components/shared/lecturer/dashboard/lecturer-stats-strip";
