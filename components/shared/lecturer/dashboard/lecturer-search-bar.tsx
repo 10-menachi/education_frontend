@@ -1,30 +1,30 @@
 "use client";
 
-import { searchSuggestions } from "@/lib/utils/constants/data";
+import { lecturerSearchSuggestions } from "@/lib/utils/constants/data";
 import {
-  Badge,
   ActionIcon,
+  Badge,
   Box,
   Group,
   Popover,
   rem,
-  Text,
-  TextInput,
   ScrollArea,
   Stack,
-  UnstyledButton,
+  Text,
+  TextInput,
   ThemeIcon,
+  UnstyledButton,
 } from "@mantine/core";
 import { IconChevronRight, IconSearch, IconX } from "@tabler/icons-react";
 import { useState } from "react";
 
-export default function SearchBar() {
+export default function LecturerSearchBar() {
   const [opened, setOpened] = useState(false);
   const [query, setQuery] = useState("");
 
   const filtered =
     query.trim().length > 0
-      ? searchSuggestions
+      ? lecturerSearchSuggestions
           .map((g) => ({
             ...g,
             items: g.items.filter(
@@ -34,13 +34,16 @@ export default function SearchBar() {
             ),
           }))
           .filter((g) => g.items.length > 0)
-      : searchSuggestions;
+      : lecturerSearchSuggestions;
 
   return (
     <Popover
       opened={opened}
-      onClose={() => setOpened(false)}
-      width={380}
+      onClose={() => {
+        setOpened(false);
+        setQuery("");
+      }}
+      width={400}
       position="bottom-start"
       shadow="lg"
       radius="lg"
@@ -53,8 +56,8 @@ export default function SearchBar() {
               autoFocus
               value={query}
               onChange={(e) => setQuery(e.currentTarget.value)}
-              placeholder="Search courses, assessments…"
-              leftSection={<IconSearch size={15} color="#aaa" />}
+              placeholder="Search classes, students, actions…"
+              leftSection={<IconSearch size={15} color="#94a3b8" />}
               rightSection={
                 query ? (
                   <ActionIcon
@@ -69,27 +72,27 @@ export default function SearchBar() {
               }
               styles={{
                 input: {
-                  background: "#f5f5f5",
-                  border: "2px solid #00c896",
+                  background: "#f8fafc",
+                  border: "2px solid #6366f1",
                   borderRadius: rem(10),
                   fontSize: 13,
-                  width: 280,
+                  width: 300,
                 },
               }}
             />
           ) : (
             <Group
-              gap={8}
+              gap={10}
               style={{
-                background: "#f5f5f5",
+                background: "#f8fafc",
                 borderRadius: rem(10),
                 padding: "9px 14px",
-                width: 280,
+                width: 300,
               }}
             >
-              <IconSearch size={15} color="#aaa" />
+              <IconSearch size={15} color="#94a3b8" />
               <Text fz={13} c="dimmed">
-                Search courses, assessments…
+                Search classes, students…
               </Text>
               <Box style={{ marginLeft: "auto" }}>
                 <Badge
@@ -109,28 +112,9 @@ export default function SearchBar() {
 
       <Popover.Dropdown
         p={0}
-        style={{ border: "1px solid #e8e8e8", overflow: "hidden" }}
+        style={{ border: "1px solid #e2e8f0", overflow: "hidden" }}
       >
-        {!opened && (
-          <TextInput
-            autoFocus
-            value={query}
-            onChange={(e) => setQuery(e.currentTarget.value)}
-            placeholder="Search courses, assessments…"
-            leftSection={<IconSearch size={15} color="#aaa" />}
-            px="md"
-            py="sm"
-            styles={{
-              input: {
-                border: "none",
-                borderBottom: "1px solid #f0f0f0",
-                borderRadius: 0,
-                fontSize: 13,
-              },
-            }}
-          />
-        )}
-        <ScrollArea.Autosize mah={360}>
+        <ScrollArea.Autosize mah={400}>
           {filtered.length === 0 ? (
             <Box p="lg" ta="center">
               <Text fz={13} c="dimmed">
@@ -160,9 +144,9 @@ export default function SearchBar() {
                       w="100%"
                       px={8}
                       py={8}
-                      style={{ borderRadius: rem(8), cursor: "pointer" }}
+                      style={{ borderRadius: rem(8) }}
                       onMouseEnter={(e) =>
-                        (e.currentTarget.style.background = "#f8f9fa")
+                        (e.currentTarget.style.background = "#f1f5f9")
                       }
                       onMouseLeave={(e) =>
                         (e.currentTarget.style.background = "transparent")
@@ -176,7 +160,7 @@ export default function SearchBar() {
                         <ThemeIcon
                           size={32}
                           radius="md"
-                          color="teal"
+                          color="indigo"
                           variant="light"
                         >
                           <item.icon size={15} />
@@ -191,7 +175,7 @@ export default function SearchBar() {
                         </Box>
                         <IconChevronRight
                           size={13}
-                          color="#ccc"
+                          color="#cbd5e1"
                           style={{ marginLeft: "auto" }}
                         />
                       </Group>
@@ -205,22 +189,38 @@ export default function SearchBar() {
         <Box
           px="md"
           py={10}
-          style={{ borderTop: "1px solid #f5f5f5", background: "#fafafa" }}
+          style={{ borderTop: "1px solid #f1f5f9", background: "#f8fafc" }}
         >
-          <Text fz={11} c="dimmed">
-            Press{" "}
-            <kbd
-              style={{
-                fontFamily: "monospace",
-                background: "#eee",
-                padding: "1px 5px",
-                borderRadius: 4,
-              }}
-            >
-              Esc
-            </kbd>{" "}
-            to close
-          </Text>
+          <Group gap={12}>
+            <Text fz={11} c="dimmed">
+              <kbd
+                style={{
+                  fontFamily: "monospace",
+                  background: "#e2e8f0",
+                  padding: "1px 5px",
+                  borderRadius: 4,
+                  fontSize: 10,
+                }}
+              >
+                ↵
+              </kbd>{" "}
+              to select
+            </Text>
+            <Text fz={11} c="dimmed">
+              <kbd
+                style={{
+                  fontFamily: "monospace",
+                  background: "#e2e8f0",
+                  padding: "1px 5px",
+                  borderRadius: 4,
+                  fontSize: 10,
+                }}
+              >
+                Esc
+              </kbd>{" "}
+              to close
+            </Text>
+          </Group>
         </Box>
       </Popover.Dropdown>
     </Popover>

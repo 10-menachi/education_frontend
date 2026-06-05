@@ -1,5 +1,3 @@
-import { courses } from "./constants";
-
 export function weightedTotal(course: Course) {
   if (
     !course.published ||
@@ -26,4 +24,12 @@ export function gradeLabel(score: number | null) {
 export function componentPct(item: CourseScore): number {
   if (item.score === null) return 0;
   return Math.round((item.score / item.max) * 100);
+}
+
+export function gradeColor(score: number) {
+  if (score >= 70) return "teal";
+  if (score >= 60) return "blue";
+  if (score >= 50) return "yellow";
+  if (score >= 40) return "orange";
+  return "red";
 }

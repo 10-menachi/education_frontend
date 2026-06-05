@@ -16,11 +16,11 @@ import {
   Progress,
   Button,
   Card,
-  RingProgress,
   Drawer,
   TextInput,
   ScrollArea,
   ActionIcon,
+  RingProgress,
 } from "@mantine/core";
 
 import {
@@ -269,7 +269,7 @@ export default function AIInsightsPage() {
             </Group>
           </Box>
 
-          <RingProgress
+          <RingProgress                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
             size={120}
             thickness={8}
             roundCaps

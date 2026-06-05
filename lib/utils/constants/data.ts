@@ -6,6 +6,7 @@ import {
   IconCheck,
   IconCheckbox,
   IconClock,
+  IconFileExport,
   IconFileSpreadsheet,
   IconFolderOpen,
   IconHome,
@@ -14,7 +15,9 @@ import {
   IconShieldCheck,
   IconStar,
   IconUpload,
+  IconUser,
   IconUsers,
+  IconUsersGroup,
 } from "@tabler/icons-react";
 
 export const student = {
@@ -450,3 +453,296 @@ export const ranks = [
 ];
 
 export const steps = ["Personal", "Professional"];
+
+export const lecturer = {
+  name: "Dr. Kamau Njoroge",
+  title: "Senior Lecturer — CS",
+  email: "k.njoroge@strathmore.edu",
+  department: "Computer Science",
+  avatar: "KN",
+  employeeId: "STR/LECT/2019/042",
+};
+
+export const classes = [
+  {
+    id: 1,
+    code: "CS 301",
+    name: "Database Systems",
+    students: 48,
+    published: 2,
+    totalAssessments: 3,
+    avgScore: 64.2,
+    atRisk: 9,
+    trend: "down",
+    structure: [
+      { name: "CAT 1", weight: 15 },
+      { name: "CAT 2", weight: 15 },
+      { name: "Final Exam", weight: 70 },
+    ],
+  },
+  {
+    id: 2,
+    code: "CS 312",
+    name: "Algorithms & DS",
+    students: 52,
+    published: 3,
+    totalAssessments: 3,
+    avgScore: 71.5,
+    atRisk: 5,
+    trend: "up",
+    structure: [
+      { name: "CAT 1", weight: 15 },
+      { name: "CAT 2", weight: 15 },
+      { name: "Final Exam", weight: 70 },
+    ],
+  },
+  {
+    id: 3,
+    code: "CS 325",
+    name: "Software Engineering",
+    students: 39,
+    published: 2,
+    totalAssessments: 3,
+    avgScore: 68.0,
+    atRisk: 6,
+    trend: "stable",
+    structure: [
+      { name: "CAT 1", weight: 15 },
+      { name: "CAT 2", weight: 15 },
+      { name: "Project", weight: 70 },
+    ],
+  },
+];
+
+export const atRiskStudents = [
+  {
+    name: "Faith Wanjiku",
+    reg: "CS/2021/043",
+    course: "Database Systems",
+    score: 47,
+    cat1: "12/30",
+    cat2: "15/30",
+    exam: "34/70",
+    reason:
+      "Consistent underperformance. Foundational gaps in normalisation & SQL.",
+  },
+  {
+    name: "Brian Omondi",
+    reg: "CS/2021/078",
+    course: "Database Systems",
+    score: 42,
+    cat1: "10/30",
+    cat2: "12/30",
+    exam: "30/70",
+    reason:
+      "Below class average in all three components. Recommend early intervention.",
+  },
+  {
+    name: "Cynthia Akinyi",
+    reg: "CS/2021/112",
+    course: "Algorithms & DS",
+    score: 51,
+    cat1: "16/30",
+    cat2: "14/30",
+    exam: "36/70",
+    reason:
+      "Dropped 2 points from CAT 1 to CAT 2. Revise recursion and graph traversal.",
+  },
+  {
+    name: "Dennis Mwangi",
+    reg: "CS/2021/055",
+    course: "Software Engineering",
+    score: 49,
+    cat1: "18/30",
+    cat2: "13/30",
+    exam: "33/70",
+    reason:
+      "Significant dip in CAT 2. Engagement and attendance may be factors.",
+  },
+  {
+    name: "Eunice Chebet",
+    reg: "CS/2021/090",
+    course: "Database Systems",
+    score: 45,
+    cat1: "11/30",
+    cat2: "14/30",
+    exam: "32/70",
+    reason:
+      "Struggling with complex joins and indexing. Peer-study group recommended.",
+  },
+];
+
+export const recentActivity = [
+  {
+    action: "Marks published",
+    detail: "CS 312 — CAT 2",
+    time: "2 hrs ago",
+    icon: IconCheck,
+    color: "teal",
+  },
+  {
+    action: "AI insights generated",
+    detail: "CS 301 nightly analysis",
+    time: "6 hrs ago",
+    icon: IconBrain,
+    color: "indigo",
+  },
+  {
+    action: "9 students invited",
+    detail: "CS 325 — bulk CSV import",
+    time: "Yesterday",
+    icon: IconMail,
+    color: "blue",
+  },
+  {
+    action: "Report exported",
+    detail: "CS 312 mark sheet (Excel)",
+    time: "2 days ago",
+    icon: IconFileSpreadsheet,
+    color: "green",
+  },
+  {
+    action: "AI alert sent",
+    detail: "5 at-risk students — CS 301",
+    time: "2 days ago",
+    icon: IconAlertTriangle,
+    color: "orange",
+  },
+];
+
+export const aiInsights = [
+  {
+    course: "Database Systems",
+    severity: "high",
+    time: "Today, 06:00 AM",
+    message:
+      "9 of 48 students (18.8%) are performing below 50%. Class average of 64.2 is 6 points below the departmental benchmark. Consider a revision session focusing on normalisation and transaction management before the exam window.",
+  },
+  {
+    course: "Algorithms & DS",
+    severity: "good",
+    time: "Yesterday, 06:00 AM",
+    message:
+      "Class average improved from 67.1 (CAT 1) to 71.5 (CAT 2). Top quartile performing strongly. Monitor the bottom 5 students — they may need targeted support on dynamic programming.",
+  },
+];
+
+export const lecturerNotifications = [
+  {
+    id: 1,
+    read: false,
+    title: "AI Alert — 9 Students at Risk",
+    body: "CS 301 nightly analysis flagged 9 students performing below 50%. Review and send interventions.",
+    time: "Today, 06:00 AM",
+    icon: IconAlertTriangle,
+    color: "red",
+  },
+  {
+    id: 2,
+    read: false,
+    title: "CSV Import Complete",
+    body: "39 students successfully imported into CS 325 Software Engineering.",
+    time: "3 hrs ago",
+    icon: IconCheck,
+    color: "teal",
+  },
+  {
+    id: 3,
+    read: false,
+    title: "AI Insights Ready",
+    body: "Nightly analysis complete for all 3 classes. 2 class-level summaries available.",
+    time: "6 hrs ago",
+    icon: IconBrain,
+    color: "indigo",
+  },
+  {
+    id: 4,
+    read: true,
+    title: "Mark Sheet Export",
+    body: "CS 312 Excel mark sheet was downloaded successfully.",
+    time: "Yesterday",
+    icon: IconFileSpreadsheet,
+    color: "green",
+  },
+  {
+    id: 5,
+    read: true,
+    title: "Student Alert Delivered",
+    body: "5 at-risk students in CS 301 received personalised AI feedback emails.",
+    time: "2 days ago",
+    icon: IconMail,
+    color: "blue",
+  },
+];
+
+export const lecturerSearchSuggestions = [
+  {
+    group: "Classes",
+    items: [
+      {
+        label: "Database Systems",
+        sub: "CS 301 · 48 students · 9 at risk",
+        icon: IconFolderOpen,
+      },
+      {
+        label: "Algorithms & DS",
+        sub: "CS 312 · 52 students · Improving",
+        icon: IconFolderOpen,
+      },
+      {
+        label: "Software Engineering",
+        sub: "CS 325 · 39 students",
+        icon: IconFolderOpen,
+      },
+    ],
+  },
+  {
+    group: "Students",
+    items: [
+      {
+        label: "Faith Wanjiku",
+        sub: "CS/2021/043 · Database Systems · At Risk",
+        icon: IconUser,
+      },
+      {
+        label: "Brian Omondi",
+        sub: "CS/2021/078 · Database Systems · At Risk",
+        icon: IconUser,
+      },
+      {
+        label: "Cynthia Akinyi",
+        sub: "CS/2021/112 · Algorithms & DS",
+        icon: IconUser,
+      },
+    ],
+  },
+  {
+    group: "Quick Actions",
+    items: [
+      {
+        label: "Import Students (CSV)",
+        sub: "Bulk enrol students into a class",
+        icon: IconUpload,
+      },
+      {
+        label: "AI Insights",
+        sub: "View nightly AI class analysis",
+        icon: IconBrain,
+      },
+      {
+        label: "Export Reports",
+        sub: "Download mark sheets or result slips",
+        icon: IconFileExport,
+      },
+    ],
+  },
+];
+
+export const links = [
+  { icon: IconFolderOpen, label: "Dashboard", active: true },
+  { icon: IconUsersGroup, label: "My Classes" },
+  { icon: IconChartLine, label: "Analytics" },
+  { icon: IconBrain, label: "AI Insights", badge: "3" },
+  { icon: IconFileExport, label: "Reports" },
+  { icon: IconSettings, label: "Settings" },
+];
