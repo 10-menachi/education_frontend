@@ -1,6 +1,6 @@
 "use client";
 
-import { notifications } from "@/lib/utils/constants";
+import { notifications } from "@/lib/utils/constants/data";
 import {
   ActionIcon,
   Badge,

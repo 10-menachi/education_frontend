@@ -1,9 +1,9 @@
-import { courses } from "@/lib/utils/constants";
 import { gradeLabel, weightedTotal } from "@/lib/utils/helpers";
 import { Stack } from "@mantine/core";
 import GPACard from "./gpa-card";
 import PerCourseMiniGrades from "./per-course-mini-grades";
 import UpcomingAssessments from "../dashboard/upcoming-assessments";
+import { courses } from "@/lib/utils/constants/data";
 
 export default function GPASidebar() {
   const published = courses.filter((c) => c.published);

@@ -4,13 +4,13 @@ import React, { useState } from "react";
 import { Box, Button, Tabs, Text } from "@mantine/core";
 import { IconChartBar, IconFileText } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
-import { courses } from "@/lib/utils/constants";
 import { gradeLabel, weightedTotal } from "@/lib/utils/helpers";
 import CustomBreadCrumb from "@/components/shared/student/bread-crumb";
 import CourseDetailsHeader from "@/components/shared/student/courses/course-details/course-details-header";
 import CourseDetailsOverview from "@/components/shared/student/courses/course-details/tabs/overview/overview-tab";
 import CourseDetailsResources from "@/components/shared/student/courses/course-details/tabs/resources/resources-tab";
 import CourseResource from "@/components/shared/student/modals/course-resource/course-resource";
+import { courses } from "@/lib/utils/constants/data";
 
 export default function CourseDetailsPage({
   params,

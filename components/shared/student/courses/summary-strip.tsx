@@ -1,4 +1,4 @@
-import { courses } from "@/lib/utils/constants";
+import { courses } from "@/lib/utils/constants/data";
 import { weightedTotal } from "@/lib/utils/helpers";
 import { Grid, Group, Paper, Text, ThemeIcon } from "@mantine/core";
 import {

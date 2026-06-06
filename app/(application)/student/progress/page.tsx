@@ -24,10 +24,10 @@ import {
   IconAward,
   IconBolt,
 } from "@tabler/icons-react";
-import { courses } from "@/lib/utils/constants";
 import { gradeLabel, weightedTotal } from "@/lib/utils/helpers";
 import StudentProgressPageHeader from "@/components/shared/student/progress/student-progress-page-header";
 import KeyMetricsStrip from "@/components/shared/student/progress/key-metrics-strip/key-metrics-strip";
+import { courses } from "@/lib/utils/constants/data";
 
 export default function StudentProgressPage() {
   const published = useMemo(() => courses.filter((c) => c.published), []);

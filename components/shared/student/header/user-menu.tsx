@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { student } from "@/lib/utils/constants";
 import {
   Avatar,
   Badge,
@@ -23,6 +22,7 @@ import {
   IconStar,
   IconUser,
 } from "@tabler/icons-react";
+import { student } from "@/lib/utils/constants/data";
 
 export default function UserMenu() {
   return (

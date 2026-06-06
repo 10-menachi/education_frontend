@@ -1,4 +1,4 @@
-import { student } from "@/lib/utils/constants";
+import { student } from "@/lib/utils/constants/data";
 import {
   Avatar,
   Badge,

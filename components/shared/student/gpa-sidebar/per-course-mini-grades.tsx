@@ -1,4 +1,4 @@
-import { courses } from "@/lib/utils/constants";
+import { courses } from "@/lib/utils/constants/data";
 import { gradeLabel, weightedTotal } from "@/lib/utils/helpers";
 import { Badge, Box, Group, Paper, Progress, Stack, Text } from "@mantine/core";
 

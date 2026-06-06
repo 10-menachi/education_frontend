@@ -1,7 +1,7 @@
 import { Badge, Box, Group, Text, ThemeIcon } from "@mantine/core";
 import { IconFolderOpen } from "@tabler/icons-react";
 import TrendBadge from "../trend-badge";
-import { courses } from "@/lib/utils/constants";
+import { courses } from "@/lib/utils/constants/data";
 
 interface Props {
   c: (typeof courses)[0];

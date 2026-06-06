@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { studentSidebarLinks } from "@/lib/utils/constants";
 import {
   Box,
   Button,
@@ -15,6 +14,7 @@ import {
   ThemeIcon,
 } from "@mantine/core";
 import { IconAward, IconBrain, IconLogout } from "@tabler/icons-react";
+import { studentSidebarLinks } from "@/lib/utils/constants/data";
 
 export default function Sidebar() {
   const pathname = usePathname();

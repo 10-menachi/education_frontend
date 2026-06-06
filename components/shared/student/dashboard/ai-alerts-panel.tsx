@@ -1,4 +1,4 @@
-import { aiAlerts } from "@/lib/utils/constants";
+import { aiAlerts } from "@/lib/utils/constants/data";
 import {
   Badge,
   Box,

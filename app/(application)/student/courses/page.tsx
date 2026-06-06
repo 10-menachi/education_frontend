@@ -4,7 +4,7 @@ import CourseCard from "@/components/shared/student/courses/course-card/course-c
 import CourseSummaryStrip from "@/components/shared/student/courses/summary-strip";
 import FiltersBar from "@/components/shared/student/filters-bar";
 import GPASidebar from "@/components/shared/student/gpa-sidebar/gpa-sidebar";
-import { courses } from "@/lib/utils/constants";
+import { courses } from "@/lib/utils/constants/data";
 import { Box, Grid, Paper, Stack, Text, Title } from "@mantine/core";
 import { useState } from "react";
 

@@ -1,4 +1,4 @@
-import { courses } from "@/lib/utils/constants";
+import { courses } from "@/lib/utils/constants/data";
 import { Badge, Box, Group, Stack, Text } from "@mantine/core";
 
 const EnrolledCourses = () => {
@@ -21,7 +21,9 @@ const EnrolledCourses = () => {
                 radius="sm"
                 size="sm"
               >
-                {course.published ? `Grade: ${course.avg}/100` : "Pending"}
+                {course.published
+                  ? `Grade: ${course.cat1.score}/100`
+                  : "Pending"}
               </Badge>
             </Group>
             {course.published && (

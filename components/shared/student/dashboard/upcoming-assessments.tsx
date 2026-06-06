@@ -1,4 +1,4 @@
-import { upcomingAssessments } from "@/lib/utils/constants";
+import { upcomingAssessments } from "@/lib/utils/constants/data";
 import { Box, Group, Paper, rem, Stack, Text, ThemeIcon } from "@mantine/core";
 import { IconClock } from "@tabler/icons-react";
 

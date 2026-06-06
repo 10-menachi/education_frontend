@@ -1,4 +1,4 @@
-import { courses } from "@/lib/utils/constants";
+import { courses } from "@/lib/utils/constants/data";
 import { Grid, Progress, Text } from "@mantine/core";
 
 interface Props {

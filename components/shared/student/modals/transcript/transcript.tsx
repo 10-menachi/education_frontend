@@ -1,15 +1,4 @@
-import { courses, student } from "@/lib/utils/constants";
-import {
-  Badge,
-  Box,
-  Button,
-  Divider,
-  Group,
-  Modal,
-  Stack,
-  Text,
-} from "@mantine/core";
-import { IconDownload } from "@tabler/icons-react";
+import { Divider, Modal, Stack } from "@mantine/core";
 import StudentInformation from "./student-information";
 import EnrolledCourses from "./enrolled-courses";
 import ActionButtons from "./action-buttons";

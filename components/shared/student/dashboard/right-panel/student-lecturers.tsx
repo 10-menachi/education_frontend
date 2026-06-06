@@ -1,4 +1,4 @@
-import { lecturers } from "@/lib/utils/constants";
+import { lecturers } from "@/lib/utils/constants/data";
 import {
   Avatar,
   Box,

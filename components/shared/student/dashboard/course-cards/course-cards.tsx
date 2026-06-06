@@ -1,8 +1,8 @@
-import { courses } from "@/lib/utils/constants";
 import { gradeLabel, weightedTotal } from "@/lib/utils/helpers";
 import { Box, Paper, Stack, Text } from "@mantine/core";
 import CourseDetails from "./course-details";
 import CourseMarks from "./course-marks";
+import { courses } from "@/lib/utils/constants/data";
 
 export default function CourseCards() {
   return (

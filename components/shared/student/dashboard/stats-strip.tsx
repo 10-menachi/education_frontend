@@ -1,4 +1,4 @@
-import { stats } from "@/lib/utils/constants";
+import { stats } from "@/lib/utils/constants/data";
 import { Grid, Group, Paper, Text, ThemeIcon } from "@mantine/core";
 
 export default function StatsStrip() {
