@@ -91,6 +91,7 @@ export default function LecturerAtRiskTable() {
               <LecturerAtRiskTableBody
                 i={i}
                 s={{ ...s, score: String(s.score) }}
+                key={i}
               />
             ))}
           </Table.Tbody>
